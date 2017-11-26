@@ -47,7 +47,7 @@ with `git remote -v`)
 work on. If none is specified, use `develop` if that is available, otherwise the `master` branch.
 
   ```
-  git checkout -b [name_of_your_new_branch] [upstream_branch]
+  git checkout -b [name_of_your_new_branch] [original_branch]
   ```
   
 * Make changes and test them. Keep changes to logical units (otherwise consider multiple Branches/
@@ -61,7 +61,7 @@ comments and documentation as needed.
 * Some repos guidelines require that the Pull Request contains only one commit, or at least that you keep your commit history clean of unnecessary commits. You can create multiple commits and then squash them into a single one. 
   
   ```
-  squash example
+  TO-DO: squash example
   ```
 
 * Push your branch to GitHub in the forked repository (remote `origin`)
@@ -70,7 +70,7 @@ comments and documentation as needed.
   git push origin [name_of_your_new_branch]
   ```
   
-* In GitHub, submit a Pull Request to the original repository, selecting the branch from which you 
+* In GitHub, submit a Pull Request to the original repository, selecting the `[original_branch]` from which you 
 based your changes (in the original repository) and `[name_of_your_new_branch]` (from your forked 
 repository).
 
@@ -79,7 +79,7 @@ repository).
   and optionally squash the commits as described above. Then rebase and the pull request will be automatically updated.
   
    ```
-   git rebase master -i
+   git rebase [TO-DO: which branch?] -i
    git push -f
    ```
 
@@ -92,20 +92,28 @@ repository).
     # Delete from GitHub (can also be done from web interface)
     git push origin --delete [name_of_your_new_branch]
 
-    # Switch to the master branch
-    git checkout master -f
+    # Switch to the original branch
+    git checkout [original_branch] -f
 
     # Delete the extra branch from local repo
     git branch -D [name_of_your_new_branch]
     ```
 
- * Pull the changes from `upstream` to your local repo
+  * Pull the changes from `upstream` to your local repo
+
+     ```
+     git pull --ff upstream [original_branch]
+     ```
+
+  * Commit the merge, review the changes, and push the merge to your GitHub repository.
   
     ```
-    git pull --ff upstream [upstream_branch]
+    TO-DO: example
     ```
-    
- * Commit the merge, review the changes, and push the merge to your GitHub repository.
+  
+ * Life after the Pull Request
+
+   * TO-DO: how to keep things in sync
 
 ## Let's practice!
 
@@ -133,4 +141,4 @@ In case you get stuck on the task or your pull request is rejected:
 
 * [General GitHub documentation](http://help.github.com/)
 * [GitHub's documentation on Git Rebase](https://help.github.com/articles/about-git-rebase/)
-* [GitHub's documentation on Configuring a Remote for a Fork]https://help.github.com/articles/configuring-a-remote-for-a-fork/
+* [GitHub's documentation on Configuring a Remote for a Fork](https://help.github.com/articles/configuring-a-remote-for-a-fork/)
