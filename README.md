@@ -23,9 +23,89 @@ This tutorial will focus on the second type of model, with the aim of giving an 
 The basic idea is the following:
 * Fork the project
 * Make changes
-* Perform a pull request
+* Perform a Pull Request (PR)
 
 ### Step-by-step
+
+* Look for contribution instructions on the repository (usually in a CONTRIBUTING file). 
+If available, follow those instructions.
+* In GitHub, create a fork of the repository.
+* Clone the forked repository on your machine. That forked repo on GitHub is the `origin`.
+
+  ```
+  git clone https://github.com/[your_username]/[forked_repo].git
+  ```
+  
+* Add the original repository as a remote called `upstream`. (Check which remotes are defined
+with `git remote -v`)
+
+  ```
+  git remote add upstream https://github.com/[original_owner]/[original_repo].git
+  ```
+
+* Create a new branch. The contribution guidelines usually mention from which branch to 
+work on. If none is specified, use `develop` if that is available, otherwise the `master` branch.
+
+  ```
+  git checkout -b [name_of_your_new_branch] [upstream_branch]
+  ```
+  
+* Make changes and test them. Keep changes to logical units (otherwise consider multiple Branches/
+Pull Requests). Follow the code guidelines (or style, if no guidelines provided), run tests, add 
+comments and documentation as needed. 
+* Make commits that follow the commit message guidelines. (A good practice is to use the imperative, present tense: "Change" not "Changed" nor "Changes")
+
+  ```
+  git commit -m "[brief_change_description]"
+  ```
+* Some repos guidelines require that the Pull Request contains only one commit, or at least that you keep your commit history clean of unnecessary commits. You can create multiple commits and then squash them into a single one. 
+  
+  ```
+  squash example
+  ```
+
+* Push your branch to GitHub in the forked repository (remote `origin`)
+
+  ```
+  git push origin [name_of_your_new_branch]
+  ```
+  
+* In GitHub, submit a Pull Request to the original repository, selecting the branch from which you 
+based your changes (in the original repository) and `[name_of_your_new_branch]` (from your forked 
+repository).
+
+* The Pull Request will then be reviewed. 
+  * If there are changes required to the Pull Request, make the updates to `[name_of_your_new_branch]`, 
+  and optionally squash the commits as described above. Then rebase and the pull request will be automatically updated.
+  
+   ```
+   git rebase master -i
+   git push -f
+   ```
+
+* When the Pull Request is approved and merged into the repo, you will most likely want to clean up 
+  a bit and ensure that you have the latest changes locally.
+  
+  * Delete the extra branch
+   
+    ```
+    # Delete from GitHub (can also be done from web interface)
+    git push origin --delete [name_of_your_new_branch]
+
+    # Switch to the master branch
+    git checkout master -f
+
+    # Delete the extra branch from local repo
+    git branch -D [name_of_your_new_branch]
+    ```
+
+ * Pull the changes from `upstream` to your local repo
+  
+    ```
+    git pull --ff upstream [upstream_branch]
+    ```
+    
+ * Commit the merge, review the changes, and push the merge to your GitHub repository.
 
 ## Let's practice!
 
@@ -49,3 +129,8 @@ In case you get stuck on the task or your pull request is rejected:
 * Ensure that there isn’t already a pull request or issue reported that handles your intention of contribution
 
 
+## Additional resources
+
+* [General GitHub documentation](http://help.github.com/)
+* [GitHub's documentation on Git Rebase](https://help.github.com/articles/about-git-rebase/)
+* [GitHub's documentation on Configuring a Remote for a Fork]https://help.github.com/articles/configuring-a-remote-for-a-fork/
