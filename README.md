@@ -4,7 +4,7 @@ This is a repo for practicing git collaboration models. Feel free to contribute 
 
 ## Prerequisites
 
-* You have some basic experience using using Git and GitHub and are familiar familiar with concepts like: clone, push, pull, checkout, commit, branch, fork.
+* You have some basic experience using using Git and GitHub and are familiar with concepts like: clone, push, pull, checkout, commit, branch, fork.
 * DataCamp’s [Introduction to Git](https://www.datacamp.com/courses/introduction-to-git-for-data-science) free course is good for beginners and also a good review of the basic commands if you feel like you need a refresher.
 
 ## Types of collaborative development models
@@ -53,6 +53,11 @@ work on. If none is specified, use `develop` if that is available, otherwise the
 * Make changes and test them. Keep changes to logical units (otherwise consider multiple Branches/
 Pull Requests). Follow the code guidelines (or style, if no guidelines provided), run tests, add 
 comments and documentation as needed. 
+
+  ```
+  git add [your_new_or_updated_file]
+  git rm [your_removed_file]
+  ```
 * Make commits that follow the commit message guidelines. (A good practice is to use the imperative, present tense: "Change" not "Changed" nor "Changes")
 
   ```
@@ -61,7 +66,11 @@ comments and documentation as needed.
 * Some repos guidelines require that the Pull Request contains only one commit, or at least that you keep your commit history clean of unnecessary commits. You can create multiple commits and then squash them into a single one. 
   
   ```
-  TO-DO: squash example
+  # For example, to squash the last two commits into a single one:
+  git rebase -i HEAD~2
+  # An editor will pop up to allow you to edit which commits to be squashed,
+  # and after you save that file, another editor will pop up and ask you what the 
+  # message of the squashed commits should be.
   ```
 
 * Push your branch to GitHub in the forked repository (remote `origin`)
@@ -76,12 +85,12 @@ repository).
 
 * The Pull Request will then be reviewed. 
   * If there are changes required to the Pull Request, make the updates to `[name_of_your_new_branch]`, 
-  and optionally squash the commits as described above. Then rebase and the pull request will be automatically updated.
+  and optionally squash the commits as described above. Then use rebase and force the push, and the pull request will be automatically updated.
   
-   ```
-   git rebase [TO-DO: which branch?] -i
-   git push -f
-   ```
+    ```
+    git rebase [original_branch] -i
+    git push origin [name_of_your_new_branch] -f
+    ```
 
 * When the Pull Request is approved and merged into the repo, you will most likely want to clean up 
   a bit and ensure that you have the latest changes locally.
@@ -93,27 +102,37 @@ repository).
     git push origin --delete [name_of_your_new_branch]
 
     # Switch to the original branch
-    git checkout [original_branch] -f
+    git checkout [original_branch]
 
     # Delete the extra branch from local repo
     git branch -D [name_of_your_new_branch]
     ```
 
-  * Pull the changes from `upstream` to your local repo
+  * Pull the changes from `upstream` to your local repo (alternatively use `fetch` and `merge`):
 
      ```
      git pull --ff upstream [original_branch]
      ```
 
-  * Commit the merge, review the changes, and push the merge to your GitHub repository.
+  * Review the changes, and push the merge to your GitHub repository.
   
     ```
-    TO-DO: example
+    git push
     ```
   
- * Life after the Pull Request
-
-   * TO-DO: how to keep things in sync
+ * Keep the fork of a repository up-to-date with the upstream repository
+   * Get the latest changes on the local copy of the repository:
+     
+     ```
+     git pull --ff upstream [original_branch]
+     ```
+   
+   * To update the fork on GitHub, you must push your changes:
+   
+     ```
+     git push
+     ```
+   
 
 ## Let's practice!
 
@@ -142,3 +161,5 @@ In case you get stuck on the task or your pull request is rejected:
 * [General GitHub documentation](http://help.github.com/)
 * [GitHub's documentation on Git Rebase](https://help.github.com/articles/about-git-rebase/)
 * [GitHub's documentation on Configuring a Remote for a Fork](https://help.github.com/articles/configuring-a-remote-for-a-fork/)
+* [Documentation on using rebase](http://gitready.com/advanced/2009/02/10/squashing-commits-with-rebase.html)
+* [GitHub's documentation on Syncing a fork](https://help.github.com/articles/syncing-a-fork/)
